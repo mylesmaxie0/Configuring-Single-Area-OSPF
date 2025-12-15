@@ -94,3 +94,33 @@ OSPF must be enabled locally on each router before networks can be advertised.
 #### Router 3
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 10 24 50 AM" src="https://github.com/user-attachments/assets/5499da3d-1ced-459a-adb7-c4c240794b0d" />
 
+## Advertise Router-to-Router Links into Area 0
+Only router-facing links should form OSPF adjacencies.
+
+### Actions 
+- Add network statements for point-to-point links
+
+#### Router 1 Configuration
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 29 37 AM" src="https://github.com/user-attachments/assets/fd57b11e-fff2-481f-82e8-7851180dd211" />
+
+##### Explanation
+- Enables OSPF on the R1–R2 point-to-point link
+- 0.0.0.3 matches the /30 subnet
+
+#### Router 2 Configuration
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 33 36 AM" src="https://github.com/user-attachments/assets/8080d35f-9496-4972-8739-d1625f2f7e0e" />
+
+##### Explanation
+- Enables OSPF on both router-facing interfaces
+- Allows R2 to form adjacencies with:
+- R1 on 10.0.12.0/30
+- R3 on 10.0.23.0/30
+
+#### Router 3 Configuration
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 36 54 AM" src="https://github.com/user-attachments/assets/2e8e6d64-643f-4669-bda3-d15f51f59546" />
+
+##### Explanation
+- Enables OSPF on the R3–R2 point-to-point link
+- Allows R3 to:
+- Discover R2 via OSPF hellos
+- Form an adjacency
