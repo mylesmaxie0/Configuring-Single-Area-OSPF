@@ -108,7 +108,8 @@ Only router-facing links should form OSPF adjacencies.
 - 0.0.0.3 matches the /30 subnet
 
 #### Router 2 Configuration
-<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 33 36 AM" src="https://github.com/user-attachments/assets/8080d35f-9496-4972-8739-d1625f2f7e0e" />
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 10 36 PM" src="https://github.com/user-attachments/assets/a399a2e3-98d9-40b3-b8ca-8395cd59cba8" />
+
 
 ##### Explanation
 - Enables OSPF on both router-facing interfaces
@@ -124,6 +125,33 @@ Only router-facing links should form OSPF adjacencies.
 - Allows R3 to:
 - Discover R2 via OSPF hellos
 - Form an adjacency
+
+## Configure a Loopback Interface
+Adding loopback interfaces for each router is a good practice in OSPF, mainly because it provides a stable Router ID that doesn’t depend on physical interfaces. 
+
+##### Router 1
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 18 27 PM" src="https://github.com/user-attachments/assets/862e8549-8efc-41ba-b611-d07327c8c3d4" />
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 20 01 PM" src="https://github.com/user-attachments/assets/8ce9f209-e436-4ec1-a708-00af5a9147c7" />
+
+##### Router 2
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 22 05 PM" src="https://github.com/user-attachments/assets/77948030-8e64-4072-aad3-c3964dd2aaa9" />
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 22 59 PM" src="https://github.com/user-attachments/assets/217ac0b9-b38a-48d6-b266-cb072ee78aaf" />
+
+##### Router 3
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 24 38 PM" src="https://github.com/user-attachments/assets/0b5ec54b-6025-4e63-a9bb-340fb7ca69e8" />
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 25 48 PM" src="https://github.com/user-attachments/assets/39be69ca-f97b-46d7-8885-21eba262bee6" />
+
+### Configure OSPF to Use the Loopback as Router ID
+OSPF picks the highest IP on an active interface by default if you don’t configure a router ID. Loopbacks ensure it’s stable.
+
+#### Router 1
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 30 46 PM" src="https://github.com/user-attachments/assets/becd99a1-c0f5-4cbe-9627-f36b7a3d3090" />
+
+#### Router 2
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 34 32 PM" src="https://github.com/user-attachments/assets/229130a7-182b-4ad3-8396-8654ee09c897" />
+
+#### Router 3
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 36 25 PM" src="https://github.com/user-attachments/assets/67d9fc08-c369-40d3-a072-574222c4b305" />
 
 ## Advertise LAN Networks into OSPF
 LAN networks must be reachable by other routers, but should not form neighbors.
@@ -144,7 +172,6 @@ LAN networks must be reachable by other routers, but should not form neighbors.
 - Allows all other routers to install a route to 192.168.1.0/24
 - OSPF is enabled on the LAN interface, but neighbor behavior is not yet restricted
 
-
 #### Router 3 Configuration (LAN: 192.168.3.0/24)
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 10 47 14 AM" src="https://github.com/user-attachments/assets/bdd06afa-0ff4-4c06-b12b-eda899729c07" />
 
@@ -161,7 +188,7 @@ Passive interfaces suppress hello packets while still allowing route advertiseme
 - Prevents adjacency formation with end devices
 - Still advertises the connected network via LSAs
 
-#### Router 1 Configuration (LAN Interface)
+##### Router 1 Configuration (LAN Interface)
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 11 00 56 AM" src="https://github.com/user-attachments/assets/62bec40a-55a4-4486-b54c-ccd5e162eb9c" />
 
 
@@ -171,7 +198,7 @@ Passive interfaces suppress hello packets while still allowing route advertiseme
 - Continues to advertise 192.168.1.0/24 into Area 0
 
 
-#### Router 3 Configuration (LAN Interface)
+##### Router 3 Configuration (LAN Interface)
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 10 58 59 AM" src="https://github.com/user-attachments/assets/5acd94a9-7a15-46a1-8500-272bf3d2b6eb" />
 
 ##### Explanation
@@ -185,5 +212,61 @@ Passive interfaces suppress hello packets while still allowing route advertiseme
 - Neighbors appear only on router-to-router links
 - No neighbors listed for LAN interfaces
 
-#### Router 1  Neighbor Table
+##### Router 1  Neighbor Table
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 38 03 PM" src="https://github.com/user-attachments/assets/c64a176c-ba3f-4a08-8de6-18953b0a1ad7" />
+
+As shown, Router 1 has form ajacencies with Router 2, which has a Router ID of 2.2.2.2. 
+
+#### Router 2  Neighbor Table
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 48 05 PM" src="https://github.com/user-attachments/assets/bbc8115c-be71-4a0b-aa47-76d56de40b8d" />
+
+Router 2 formed adjacencies with Router 1 (1.1.1.1) and Router 3 (3.3.3.3).
+
+##### Router 3  Neighbor Table
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 12 50 59 PM" src="https://github.com/user-attachments/assets/a0cdccac-7c4d-4754-86d5-9701f3ab03cd" />
+
+
+Router 3 formed adjacencies with Router 2 (2.2.2.2).
+
+## Verify OSPF Routes in the Routing Table
+
+#### What This Confirms
+- Routes learned dynamically via OSPF are marked with O
+- Administrative Distance is 110
+- Metrics are cumulative OSPF costs
+- Remote LAN networks are reachable
+
+##### Router 1 Routing Table
+<img width="850" height="329" alt="Screenshot 2025-12-15 at 12 58 49 PM" src="https://github.com/user-attachments/assets/31aad68a-9e2a-41f1-abb2-8a4597637432" />
+
+##### Router 2 Routing Table
+<img width="850" height="329" alt="Screenshot 2025-12-15 at 12 58 49 PM" src="https://github.com/user-attachments/assets/8f166e45-2cb3-4631-89f2-ae83c37b4787" />
+
+##### Router 3 Routing Table
+<img width="850" height="329" alt="Screenshot 2025-12-15 at 12 58 49 PM" src="https://github.com/user-attachments/assets/60552b51-a5ba-46ea-8d24-852e55bf0ba7" />
+
+## End-to-End Connectivity Verification
+
+#### What This Confirms	
+- Full end-to-end routing is functional
+- OSPF is successfully providing reachability
+- Passive interfaces did not prevent route advertisement
+
+#### To validate correct OSPF operation, initiate a ping test from LAN-A (PC1) to LAN-B (PC2) and verify successful ICMP reachability across the OSPF domain.
+<img width="839" height="417" alt="Screenshot 2025-12-15 at 1 10 17 PM" src="https://github.com/user-attachments/assets/702882ba-ba48-4ed0-997f-13b6db6b16c8" />
+
+##### PC1 - LAN A IP Settings
+The default gateway on PC1’s network adapter is configured as 192.168.1.1, which directs outbound traffic to Router 1’s LAN interface for routing beyond the local subnet.
+<img width="855" height="457" alt="Screenshot 2025-12-15 at 1 17 34 PM" src="https://github.com/user-attachments/assets/5b485ebe-aaff-43ea-ab4a-8342bdeeafed" />
+
+##### PC2 - LAN B IP Settings
+The default gateway on PC2’s network adapter is configured as 192.168.3.1, which directs outbound traffic to Router 2’s LAN interface for routing beyond the local subnet.
+<img width="861" height="457" alt="Screenshot 2025-12-15 at 1 21 32 PM" src="https://github.com/user-attachments/assets/0d4df2a1-9520-4065-9be8-1f8d73cd1635" />
+
+### Pinging PC1 -> PC2
+The initial ping requests may fail while the ARP process resolves the destination MAC address. Once ARP resolution is complete, subsequent ping tests should receive all packets successfully.
+<img width="861" height="393" alt="Screenshot 2025-12-15 at 1 25 47 PM" src="https://github.com/user-attachments/assets/2ce6e926-2964-4964-8b16-b507e7e0bddb" />
+
+## Summary
+This lab demonstrates the configuration and verification of Single-Area OSPF (Area 0) with the use of passive interfaces. Router-to-router links are enabled for OSPF adjacency formation, while LAN-facing interfaces are configured as passive to prevent unnecessary routing updates. End-to-end connectivity is validated through routing table inspection and ICMP testing between LAN segments.
 
