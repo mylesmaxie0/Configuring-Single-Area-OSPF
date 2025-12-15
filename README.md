@@ -124,3 +124,31 @@ Only router-facing links should form OSPF adjacencies.
 - Allows R3 to:
 - Discover R2 via OSPF hellos
 - Form an adjacency
+
+## Advertise LAN Networks into OSPF
+LAN networks must be reachable by other routers, but should not form neighbors.
+
+### Actions
+- Add network statements for LAN subnets
+
+### What This Does
+- Injects LAN networks into OSPF
+- Allows other routers to install routes to these networks
+- Does not yet prevent hello packets
+
+#### Router 1 Configuration (LAN: 192.168.1.0/24)
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 44 33 AM" src="https://github.com/user-attachments/assets/a24a4748-5fa2-48d4-a2b1-e37497ecbfa4" />
+
+##### Explanation
+- Advertises the R1 LAN subnet into OSPF Area 0
+- Allows all other routers to install a route to 192.168.1.0/24
+- OSPF is enabled on the LAN interface, but neighbor behavior is not yet restricted
+
+
+#### Router 3 Configuration (LAN: 192.168.3.0/24)
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 47 14 AM" src="https://github.com/user-attachments/assets/bdd06afa-0ff4-4c06-b12b-eda899729c07" />
+
+##### Explanation
+- Advertises the R3 LAN subnet into OSPF Area 0
+- Makes 192.168.3.0/24 reachable across the OSPF domain
+- OSPF hellos are still allowed on this interface until it is made passive
