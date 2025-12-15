@@ -1,13 +1,13 @@
 # Single-Area OSPF Area 0
 
-## 1. Lab Overview
+## Lab Overview
 
 This lab documents the configuration and verification of **Single-Area OSPF (Area 0)** with the use of **passive interfaces**. The goal is to demonstrate how OSPF advertises networks while selectively suppressing neighbor formation and hello packets on LAN-facing interfaces.
 
 
 ---
 
-## 2. Objectives 
+## Objectives 
 - Configure OSPF using network statements
 - Identify which interfaces should be passive and why
 - Verify OSPF neighbors, interfaces, and routes
@@ -15,7 +15,7 @@ This lab documents the configuration and verification of **Single-Area OSPF (Are
 
 ---
 
-## 3. Network Topology
+## Network Topology
 
 <img width="853" height="462" alt="Screenshot 2025-12-15 at 8 46 31 AM" src="https://github.com/user-attachments/assets/8d79da3b-39da-42f7-9c5b-f5f5c98f1c24" />
 
@@ -28,7 +28,7 @@ This lab documents the configuration and verification of **Single-Area OSPF (Are
 
 ---
 
-## 4. IP Addressing Plan
+## IP Addressing Plan
 
 | Router | Interface | IP Address | Subnet Mask |
 |------|----------|------------|-------------|
