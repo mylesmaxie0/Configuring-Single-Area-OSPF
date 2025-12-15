@@ -178,3 +178,12 @@ Passive interfaces suppress hello packets while still allowing route advertiseme
 - Suppresses OSPF hello packets on GigabitEthernet0/1
 - Prevents unintended neighbor formation
 - Continues to advertise 192.168.3.0/24 into Area 0
+
+## Verify OSPF Neighbor Adjacencies
+
+#### Expected Outcome
+- Neighbors appear only on router-to-router links
+- No neighbors listed for LAN interfaces
+
+#### Router 1  Neighbor Table
+
