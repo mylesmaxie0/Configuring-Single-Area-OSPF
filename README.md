@@ -73,3 +73,24 @@ Before enabling OSPF, ensure all interfaces are correctly addressed and operatio
 
 #### Router 3
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 9 07 06 AM" src="https://github.com/user-attachments/assets/672eaf9b-409c-4d9d-93a1-693f70c6da64" />
+
+## Enabling OSPF Routing Process
+OSPF must be enabled locally on each router before networks can be advertised.
+
+### Actions 
+- Create OSPF process 1 on each router
+
+### What This Does
+- Starts on OSPF routing process
+- Allows the router to participate in OSPF
+- Does not advertise any networks by itself
+
+#### Router 1
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 21 17 AM" src="https://github.com/user-attachments/assets/6d684510-f60d-4704-9b27-31d82e4c9fea" />
+
+#### Router 2
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 24 05 AM" src="https://github.com/user-attachments/assets/b539baa6-0201-4761-a87b-b92092b34b4c" />
+
+#### Router 3
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 24 50 AM" src="https://github.com/user-attachments/assets/5499da3d-1ced-459a-adb7-c4c240794b0d" />
+
