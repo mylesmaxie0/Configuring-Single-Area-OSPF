@@ -148,7 +148,33 @@ LAN networks must be reachable by other routers, but should not form neighbors.
 #### Router 3 Configuration (LAN: 192.168.3.0/24)
 <img width="850" height="266" alt="Screenshot 2025-12-15 at 10 47 14 AM" src="https://github.com/user-attachments/assets/bdd06afa-0ff4-4c06-b12b-eda899729c07" />
 
+## Configure Passive Interfaces on LAN Ports
+LAN-facing interfaces should not participate in OSPF neighbor discovery.
+Passive interfaces suppress hello packets while still allowing route advertisement.
+
+### Actions
+- Identify all LAN-facing interfaces
+- Mark them as passive
+
+### What This Does
+- Stops OSPF hello packets on those interfaces
+- Prevents adjacency formation with end devices
+- Still advertises the connected network via LSAs
+
+#### Router 1 Configuration (LAN Interface)
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 11 00 56 AM" src="https://github.com/user-attachments/assets/62bec40a-55a4-4486-b54c-ccd5e162eb9c" />
+
+
 ##### Explanation
-- Advertises the R3 LAN subnet into OSPF Area 0
-- Makes 192.168.3.0/24 reachable across the OSPF domain
-- OSPF hellos are still allowed on this interface until it is made passive
+- Suppresses OSPF hello packets on GigabitEthernet0/0
+- Prevents OSPF adjacency formation with end devices
+- Continues to advertise 192.168.1.0/24 into Area 0
+
+
+#### Router 3 Configuration (LAN Interface)
+<img width="850" height="266" alt="Screenshot 2025-12-15 at 10 58 59 AM" src="https://github.com/user-attachments/assets/5acd94a9-7a15-46a1-8500-272bf3d2b6eb" />
+
+##### Explanation
+- Suppresses OSPF hello packets on GigabitEthernet0/1
+- Prevents unintended neighbor formation
+- Continues to advertise 192.168.3.0/24 into Area 0
